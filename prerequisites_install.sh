@@ -2,7 +2,7 @@
 
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
-brew install helm kubernetes-cli awscli aws-iam-authenticator terraform jq
+brew install helm kubernetes-cli awscli aws-iam-authenticator terraform jq tflint
 echo
 echo "Installed helm version:"
 helm version
@@ -21,6 +21,8 @@ terraform version | head -n 1
 echo
 echo "Installed jq version:"
 jq --version
+echo
+tflint -v
 echo
 
 bash "$SCRIPTPATH/kfctl_install.sh"
