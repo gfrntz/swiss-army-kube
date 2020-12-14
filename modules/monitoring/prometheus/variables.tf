@@ -47,3 +47,28 @@ variable "grafana_allowed_domains" {
   description = "Allowed domain for Grafana Google auth"
   default     = "local"
 }
+
+variable "grafana_version" {
+  description = "Grafana version"
+  default = "7.3.5"
+}
+
+variable "chart_url" {
+  description = "Helm charts repo url"
+  default     = "https://prometheus-community.github.io/helm-charts"
+}
+
+variable "chart_name" {
+  description = "Helm chart name"
+  default = "kube-prometheus-stack"
+}
+
+variable "chart_version" {
+  description = "Helm chart version"
+  default = "12.8.0"
+}
+
+variable "release_name" {
+  description = "Release name"
+  default     = "kube-prometheus-stack"
+}

@@ -24,10 +24,10 @@ resource "helm_release" "monitoring" {
   depends_on = [
     var.module_depends_on
   ]
-  name          = "prometheus-operator"
-  repository    = "https://kubernetes-charts.storage.googleapis.com"
-  chart         = "prometheus-operator"
-  version       = "9.3.1"
+  name          = var.release_name
+  repository    = var.chart_url
+  chart         = var.chart_name
+  version       = var.chart_version
   namespace     = kubernetes_namespace.monitoring.metadata[0].name
   recreate_pods = true
   timeout       = 1200
@@ -40,7 +40,7 @@ resource "helm_release" "monitoring" {
       alertmanager_host            = "alertmanager.${var.domains[0]}"
       certmanager_issuer           = "letsencrypt-prod"
       grafana_enabled              = true
-      grafana_version              = "7.1.1"
+      grafana_version              = var.grafana_version
       grafana_pvc_enabled          = true
       grafana_ingress_enabled      = true
       grafana_admin_password       = random_password.grafana_password.result
