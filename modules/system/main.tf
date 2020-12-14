@@ -103,7 +103,7 @@ data "aws_iam_policy_document" "external_dns_assume_role_policy" {
     }
 
     principals {
-      identifiers = [aws_iam_openid_connect_provider.cluster.arn]
+      identifiers = [var.cluster_oidc_arn]
       type        = "Federated"
     }
   }
@@ -282,7 +282,7 @@ resource "helm_release" "issuers" {
     var.module_depends_on
   ]
   name      = "issuers"
-  chart     = "../charts/cluster-issuers"
+  chart     = "../../charts/cluster-issuers"
   version   = "0.1.0"
   namespace = kubernetes_namespace.cert-manager.metadata[0].name
 
