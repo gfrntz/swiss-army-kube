@@ -15,7 +15,7 @@
 #### terraform  
 `brew install terraform`
 
-#### kfctl 
+#### kfctl
 `bash swiss-army-kube/kfctl_install.sh`
 
 ( To run kfctl, go to the `/usr/local/bin/kfctl` binary file in Finder, right-click, then select Open. Then click Open again to confirm that you want to open the app. )  
@@ -24,7 +24,7 @@
 `brew install jq`
 
 #### To install all prerequisites
-`bash swiss-army-kube/prerequisites_install.sh` 
+`bash swiss-army-kube/prerequisites_install.sh`
 
 # Structure
   main.tf - the main Terraform file with infrastructure code
@@ -32,6 +32,8 @@
   providers.tf - list of providers and their values
 
 # Deploy cluster
+Rename main.tf or create your own main.tf file
+
 Change terraform.tfvars, choose modules in modules.tf and do the following:
 
 Prepare and download modules
@@ -52,7 +54,7 @@ Deploy cluster and helm charts
 
 ## Working with cluster
 
-To destroy some module just remove them from modules.tf and run 
+To destroy some module just remove them from modules.tf and run
 
 `terraform plan -out plan && terraform apply plan`
 
@@ -85,7 +87,7 @@ WARNING: if you don't request GPUs when using the device plugin with NVIDIA imag
 Enable terraform logs verbose
 `export TF_LOG=trace`
 
-Remove corrupt state 
+Remove corrupt state
 `terraform state rm module.loki.helm_release.loki-stack`
 
 Refresh tfstate
