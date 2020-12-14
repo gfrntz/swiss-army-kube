@@ -53,22 +53,47 @@ variable "grafana_version" {
   default = "7.3.5"
 }
 
-variable "chart_url" {
+variable "prometheus_chart_url" {
   description = "Helm charts repo url"
   default     = "https://prometheus-community.github.io/helm-charts"
 }
 
-variable "chart_name" {
+variable "prometheus_chart_name" {
   description = "Helm chart name"
-  default = "kube-prometheus-stack"
+  default     = "kube-prometheus-stack"
 }
 
-variable "chart_version" {
+variable "prometheus_chart_version" {
   description = "Helm chart version"
-  default = "12.8.0"
+  default     = "12.8.0"
 }
 
-variable "release_name" {
+variable "prometheus_release_name" {
   description = "Release name"
   default     = "kube-prometheus-stack"
+}
+
+variable "victoria_metrics_enabled" {
+  description = "If set to true, install victoria metrics storage backend"
+  default     = false
+}
+
+variable "victoria_metrics_chart_url" {
+  description = "Helm charts repo url"
+  default     = "https://victoriametrics.github.io/helm-charts/"
+}
+
+variable "victoria_metrics_chart_name" {
+  description = "Helm chart name"
+  default     = "victoria-metrics-cluster"
+}
+
+variable "victoria_metrics_chart_version" {
+  description = "Helm chart version"
+  default     = "0.8.4"
+}
+
+variable "victoria_metrics_release_name" {
+  description = "Release name"
+  default     = "victoria-metrics-cluster"
 }

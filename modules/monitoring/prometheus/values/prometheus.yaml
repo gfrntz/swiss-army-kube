@@ -28,7 +28,7 @@ grafana:
     tag: ${grafana_version}
   persistence:
     enabled: ${grafana_pvc_enabled}
-  adminPassword: ${grafana_admin_password}
+  adminPassword: "${grafana_admin_password}"
 
   grafana.ini:
     server:
@@ -43,7 +43,7 @@ grafana:
       token_url: https://accounts.google.com/o/oauth2/token
       allowed_domains: ${grafana_allowed_domains}
       allow_sign_up: true
-  envFromSecret:      
+  envFromSecret:
 
   ingress:
     ## If true, Grafana Ingress will be created
@@ -56,7 +56,7 @@ grafana:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: ${certmanager_issuer}
       kubernetes.io/tls-acme: "true"
-      kubernetes.io/ingress.class: "nginx"    
+      kubernetes.io/ingress.class: "nginx"
 
     ## Hostnames.
     ## Must be provided if Ingress is enable.
@@ -81,7 +81,7 @@ prometheus:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: ${certmanager_issuer}
       kubernetes.io/tls-acme: "true"
-      kubernetes.io/ingress.class: "nginx"        
+      kubernetes.io/ingress.class: "nginx"
 
 
     ## Hostnames.
@@ -97,6 +97,11 @@ prometheus:
           - ${prometheus_url}
 
   prometheusSpec:
+    # TODO: move victoria-metrics url name to variables
+    %{ if victoria_metrics_enabled }
+    remoteWrite:
+      - url: http://victoria-metrics-cluster-vmstorage:8428/api/v1/write
+    %{ endif }
     ## External URL at which Prometheus will be reachable.
     ##
     externalUrl: "https://${prometheus_url}"

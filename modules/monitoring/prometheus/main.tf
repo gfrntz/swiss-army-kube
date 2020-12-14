@@ -20,14 +20,29 @@ resource "aws_ssm_parameter" "grafana_password" {
   value = random_password.grafana_password.result
 }
 
+resource "helm_release" "victoria_metrics_cluster" {
+  count       = var.victoria_metrics_enabled ? 1 : 0
+  depends_on = [
+    var.module_depends_on
+  ]
+  name         = var.victoria_metrics_release_name
+  repository   = var.victoria_metrics_chart_url
+  chart        = var.victoria_metrics_chart_name
+  version      = var.victoria_metrics_chart_version
+  namespace    = kubernetes_namespace.monitoring.metadata[0].name
+  recreate_pods = true
+  timeout       = 1200
+
+}
+
 resource "helm_release" "monitoring" {
   depends_on = [
     var.module_depends_on
   ]
-  name          = var.release_name
-  repository    = var.chart_url
-  chart         = var.chart_name
-  version       = var.chart_version
+  name          = var.prometheus_release_name
+  repository    = var.prometheus_chart_url
+  chart         = var.prometheus_chart_name
+  version       = var.prometheus_chart_version
   namespace     = kubernetes_namespace.monitoring.metadata[0].name
   recreate_pods = true
   timeout       = 1200
@@ -50,6 +65,7 @@ resource "helm_release" "monitoring" {
       prometheus_enabled           = true
       prometheus_ingress_enabled   = false
       prometheus_url               = "prometheus.${var.domains[0]}"
+      victoria_metrics_enabled     = var.victoria_metrics_enabled
     })
   ]
 }
