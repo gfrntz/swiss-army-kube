@@ -73,6 +73,11 @@ variable "prometheus_release_name" {
   default     = "kube-prometheus-stack"
 }
 
+variable "prometheus_disable_rule_selectors" {
+  description = "If set to true, rules, serviceMonitor and podMonitor selectors will be disable"
+  default     = false
+}
+
 variable "victoria_metrics_enabled" {
   description = "If set to true, install victoria metrics storage backend"
   default     = false

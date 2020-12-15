@@ -50,22 +50,23 @@ resource "helm_release" "monitoring" {
 
   values = [templatefile("${path.module}/values/prometheus.yaml",
     {
-      alertmanager_enabled         = true
-      alertmanager_ingress_enabled = false
-      alertmanager_host            = "alertmanager.${var.domains[0]}"
-      certmanager_issuer           = "letsencrypt-prod"
-      grafana_enabled              = true
-      grafana_version              = var.grafana_version
-      grafana_pvc_enabled          = true
-      grafana_ingress_enabled      = true
-      grafana_admin_password       = random_password.grafana_password.result
-      grafana_url                  = "grafana.${var.domains[0]}"
-      grafana_google_auth          = var.grafana_google_auth
-      grafana_allowed_domains      = var.grafana_allowed_domains
-      prometheus_enabled           = true
-      prometheus_ingress_enabled   = false
-      prometheus_url               = "prometheus.${var.domains[0]}"
-      victoria_metrics_enabled     = var.victoria_metrics_enabled
+      alertmanager_enabled              = true
+      alertmanager_ingress_enabled      = false
+      alertmanager_host                 = "alertmanager.${var.domains[0]}"
+      certmanager_issuer                = "letsencrypt-prod"
+      grafana_enabled                   = true
+      grafana_version                   = var.grafana_version
+      grafana_pvc_enabled               = true
+      grafana_ingress_enabled           = true
+      grafana_admin_password            = random_password.grafana_password.result
+      grafana_url                       = "grafana.${var.domains[0]}"
+      grafana_google_auth               = var.grafana_google_auth
+      grafana_allowed_domains           = var.grafana_allowed_domains
+      prometheus_enabled                = true
+      prometheus_ingress_enabled        = false
+      prometheus_url                    = "prometheus.${var.domains[0]}"
+      victoria_metrics_enabled          = var.victoria_metrics_enabled
+      prometheus_disable_rule_selectors = var.prometheus_disable_rule_selectors
     })
   ]
 }

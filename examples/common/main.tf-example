@@ -183,15 +183,17 @@ module "scaling" {
 # }
 
 # module "prometheus" {
-#  module_depends_on       = [module.system.cert-manager, module.nginx.nginx-ingress]
-#  source                  = "../../modules/monitoring/prometheus"
+#  module_depends_on                 = [module.system.cert-manager, module.nginx.nginx-ingress]
+#  source                            = "../../modules/monitoring/prometheus"
 #
-#  cluster_name            = module.kubernetes.cluster_name
-#  domains                 = ["swiss-army.example.io"]
-#  grafana_google_auth     = "<grafana_google_auth>"
-#  grafana_client_id       = "<grafana_client_id>"
-#  grafana_client_secret   = "<grafana_client_secret>"
-#  grafana_allowed_domains = "<grafana_allowed_domains>"
+#  cluster_name                      = module.kubernetes.cluster_name
+#  domains                           = ["swiss-army.example.io"]
+#  grafana_google_auth               = "<grafana_google_auth>"
+#  grafana_client_id                 = "<grafana_client_id>"
+#  grafana_client_secret             = "<grafana_client_secret>"
+#  grafana_allowed_domains           = "<grafana_allowed_domains>"
+#  prometheus_disable_rule_selectors = false
+#  victoria_metrics_enabled = false
 # }
 
 # module "loki" {

@@ -30,6 +30,14 @@ grafana:
     enabled: ${grafana_pvc_enabled}
   adminPassword: "${grafana_admin_password}"
 
+%{ if victoria_metrics_enabled }
+  additionalDataSources:
+    - name: VictoriaMetrics
+      type: prometheus
+      access: proxy
+      url: http://victoria-metrics-cluster-vmselect:8481/select/0/prometheus
+%{ endif }
+
   grafana.ini:
     server:
       domain: ${grafana_url}
@@ -100,7 +108,13 @@ prometheus:
     # TODO: move victoria-metrics url name to variables
     %{ if victoria_metrics_enabled }
     remoteWrite:
-      - url: http://victoria-metrics-cluster-vmstorage:8428/api/v1/write
+      - url: http://victoria-metrics-cluster-vminsert:8480/insert/0/prometheus/api/v1/write
+    %{ endif }
+
+    %{ if prometheus_disable_rule_selectors }
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
     %{ endif }
     ## External URL at which Prometheus will be reachable.
     ##
