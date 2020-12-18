@@ -330,9 +330,9 @@ resource "helm_release" "metrics-server" {
   ]
 
   name       = "state"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
+  repository = "https://charts.helm.sh/stable"
   chart      = "metrics-server"
-  version    = "2.11.1"
+  version    = "2.11.4"
   namespace  = "kube-system"
   timeout    = 1200
 }
@@ -344,16 +344,16 @@ resource "null_resource" "sealed-secrets-crd" {
   provisioner "local-exec" {
     command = <<EOC
 kubectl --kubeconfig ${path.root}/${var.config_path} -n kube-system apply -f ${path.module}/manifests/sealed-secrets-crd.yaml
-    EOC
+EOC
   }
 }
 # Deploy saled-secrets
 resource "helm_release" "sealed-secrets" {
   depends_on = [null_resource.sealed-secrets-crd]
   name       = "sealed-secrets"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
+  repository = "https://charts.helm.sh/stable"
   chart      = "sealed-secrets"
-  version    = "1.10.3"
+  version    = "1.12.2"
   namespace  = "kube-system"
   timeout    = 1200
   values = [

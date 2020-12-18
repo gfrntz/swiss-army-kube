@@ -207,7 +207,7 @@ resource "helm_release" "alb-ingress" {
     aws_iam_role.alb-ingress
   ]
   name       = "alb"
-  repository = "https://kubernetes-charts-incubator.storage.googleapis.com"
+  repository = "https://charts.helm.sh/stable"
   chart      = "aws-alb-ingress-controller"
   namespace  = kubernetes_namespace.alb-ingress-system.metadata[0].name
 

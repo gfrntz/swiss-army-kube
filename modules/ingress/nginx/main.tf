@@ -13,7 +13,7 @@ resource "helm_release" "nginx-ingress" {
     var.module_depends_on
   ]
   name       = "nginx"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
+  repository = "https://charts.helm.sh/stable"
   chart      = "nginx-ingress"
   version    = "1.39.0"
   namespace  = kubernetes_namespace.ingress-system.metadata[0].name
@@ -79,7 +79,7 @@ resource "helm_release" "oauth2-proxy" {
   ]
 
   name          = "oauth2-proxy"
-  repository    = "https://kubernetes-charts.storage.googleapis.com"
+  repository    = "https://charts.helm.sh/stable"
   chart         = "oauth2-proxy"
   version       = "3.1.0"
   namespace     = "ingress-system"
@@ -142,7 +142,7 @@ resource "helm_release" "oauth2-proxy-google" {
   ]
 
   name          = "oauth2-proxy-google"
-  repository    = "https://kubernetes-charts.storage.googleapis.com"
+  repository    = "https://charts.helm.sh/stable"
   chart         = "oauth2-proxy"
   version       = "3.1.0"
   namespace     = "ingress-system"

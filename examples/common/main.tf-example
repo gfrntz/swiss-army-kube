@@ -193,7 +193,7 @@ module "scaling" {
 #  grafana_client_secret             = "<grafana_client_secret>"
 #  grafana_allowed_domains           = "<grafana_allowed_domains>"
 #  prometheus_disable_rule_selectors = false
-#  victoria_metrics_enabled = false
+#  victoria_metrics_enabled          = false
 # }
 
 # module "loki" {
